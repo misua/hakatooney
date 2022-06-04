@@ -81,4 +81,8 @@ func UpdateBook(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"error": err.Error()})
 		return
 	}
+
+	models.DB.Model(&book).Updates(input)
+	c.JSON(http.StatusOK, gin.H{"data": book})
+
 }
