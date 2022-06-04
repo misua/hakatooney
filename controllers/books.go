@@ -82,7 +82,7 @@ func UpdateBook(c *gin.Context) {
 		return
 	}
 
-	models.DB.Model(&book).Updates(input)
+	models.DB.Model(&book).Updates(input) // actual updates of 'input'
 	c.JSON(http.StatusOK, gin.H{"data": book})
 
 }
