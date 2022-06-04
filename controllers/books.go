@@ -13,9 +13,9 @@ type CreateBookInput struct {
 }
 
 //update patch
-type UpdateBookInput struct  {
-Title  string `json:"title"`
-Author string `json:"author"`
+type UpdateBookInput struct {
+	Title  string `json:"title"`
+	Author string `json:"author"`
 }
 
 //GET /books
@@ -60,26 +60,25 @@ func FindBook(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": book})
 }
 
-
 //PATCH /books/:id
 //update a book
 
-func UpdateBook(c *gin.Context){
+func UpdateBook(c *gin.Context) {
 	//get model if existing
 
 	var book models.Book
 
-	if err := models.DB.Where("id =?", c.Param("id").First(&book).Error; err !=nil {
-		c.JSON(http.StatusBadRequest,gin.H{"error": "Record not found!"})
+	if err := models.DB.Where("id =?", c.Param("id")).First(&book).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
-	})
+	}
 
 	//validate input
 
 	var input UpdateBookInput
 
-	if err := c.ShouldBindJSON(&input);err != nil{
-		c.JSON(http.StatusOK,gin.H{"error": err.Error()})
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusOK, gin.H{"error": err.Error()})
 		return
 	}
 }
